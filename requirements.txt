@@ -1,0 +1,7 @@
+streamlit
+openai
+requests
+python-dotenv
+google-generativeai
+docx
+datetime

@@ -13,6 +13,9 @@ A **Gemini API**-powered **Curriculum Generator** built using **Streamlit** that
 - **Backend**: Python
 - **AI Model**: Gemini API
 
+## **Demo video**  
+https://drive.google.com/file/d/1gbSwk8l-hwmYf0TYYT5VWgqCHh-_5JA5/view?usp=sharing
+
 ## 📦 Installation
 ```bash
 # Clone the repository

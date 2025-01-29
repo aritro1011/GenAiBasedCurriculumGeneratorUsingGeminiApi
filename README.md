@@ -16,7 +16,7 @@ A **Gemini API**-powered **Curriculum Generator** built using **Streamlit** that
 ## 📦 Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/GenAiBasedCurriculumGeneratorUsingGeminiApi.git
+git clone https://github.com/aritro1011/GenAiBasedCurriculumGeneratorUsingGeminiApi.git
 cd GenAiBasedCurriculumGeneratorUsingGeminiApi
 
 # Install dependencies

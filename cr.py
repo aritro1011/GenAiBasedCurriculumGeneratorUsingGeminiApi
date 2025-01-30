@@ -1,13 +1,12 @@
 import streamlit as st
 import google.generativeai as genai
 from docx import Document
-#from config import GEMINI_API_KEY   [use this when running locally]
 from io import BytesIO
 import datetime
 import os
 
 # Configure the API key securely from Streamlit Secrets
-GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"] 
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
 # Configure the API key
 genai.configure(api_key=GEMINI_API_KEY)
@@ -59,6 +58,7 @@ with col3:
 col4, _, _ = st.columns([1, 1, 1]) 
 with col4:
     subtopics_per_topic = st.number_input("Maximum Sub-topics per Topic", min_value=0, max_value=5, value=2)
+
 # Radio button to enable proficiency selection
 enable_proficiency = st.radio("Do you want to select a Proficiency Level?", ["No", "Yes"], index=0)
 
@@ -67,7 +67,7 @@ if enable_proficiency == "Yes":
     proficiency_level = st.selectbox("Select Proficiency Level", ["Beginner", "Intermediate", "Professional"])
 else:
     proficiency_level = None  # Set to None if not selected
-    
+
 st.subheader("Course Details")
 course_topic = st.text_area("Enter Course Topic:", height=100)
 primary_resource_url = st.text_input("Primary Resource URL (optional):", "")
@@ -75,6 +75,9 @@ primary_resource_url = st.text_input("Primary Resource URL (optional):", "")
 if st.button("Generate Curriculum Structure"):
     if course_topic:
         with st.spinner("Generating curriculum structure..."):
+            # Modify prompt to include proficiency level if selected
+            proficiency_prompt = f" and should be suitable for a {proficiency_level.lower()} level" if proficiency_level else ""
+            
             detailed_prompt = f"""Please create a {course_type.lower()} curriculum structure for:
             Course Topic: {course_topic}
             Number of modules: {num_modules}
@@ -92,6 +95,8 @@ if st.button("Generate Curriculum Structure"):
             - In-depth theoretical and practical components
             - Detailed exploration of advanced concepts
             - Long-term learning objectives'''}
+
+            {proficiency_prompt} 
             
             Please follow the specified format:
             1. Context 
@@ -155,5 +160,3 @@ The curriculum expert will provide:
 - Defined learning outcomes
 - Integrated resources
 """)
-
-

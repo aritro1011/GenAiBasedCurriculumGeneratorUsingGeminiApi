@@ -1,6 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 from docx import Document
+#from config import GEMINI_API_KEY   [use this when running locally]
 from io import BytesIO
 import datetime
 import os
@@ -55,6 +56,7 @@ with col2:
     num_modules = st.number_input("Number of Modules", min_value=1, max_value=10, value=3)
 with col3:
     topics_per_module = st.number_input("Topics per Module", min_value=1, max_value=8, value=3)
+col4, _, _ = st.columns([1, 1, 1]) 
 with col4:
     subtopics_per_topic = st.number_input("Maximum Sub-topics per Topic", min_value=0, max_value=5, value=2)
 

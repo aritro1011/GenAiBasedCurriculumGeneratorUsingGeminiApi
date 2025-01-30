@@ -59,7 +59,15 @@ with col3:
 col4, _, _ = st.columns([1, 1, 1]) 
 with col4:
     subtopics_per_topic = st.number_input("Maximum Sub-topics per Topic", min_value=0, max_value=5, value=2)
+# Radio button to enable proficiency selection
+enable_proficiency = st.radio("Do you want to select a Proficiency Level?", ["No", "Yes"], index=0)
 
+# Show proficiency level only if user selects "Yes"
+if enable_proficiency == "Yes":
+    proficiency_level = st.selectbox("Select Proficiency Level", ["Beginner", "Intermediate", "Professional"])
+else:
+    proficiency_level = None  # Set to None if not selected
+    
 st.subheader("Course Details")
 course_topic = st.text_area("Enter Course Topic:", height=100)
 primary_resource_url = st.text_input("Primary Resource URL (optional):", "")

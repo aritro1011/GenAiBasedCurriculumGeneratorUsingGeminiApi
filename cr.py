@@ -4,6 +4,10 @@ from config import GEMINI_API_KEY
 from docx import Document
 from io import BytesIO
 import datetime
+import os
+
+# Configure the API key securely from Streamlit Secrets
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"] 
 
 # Configure the API key
 genai.configure(api_key=GEMINI_API_KEY)
@@ -12,8 +16,8 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
 # Set up Streamlit page configuration
-st.set_page_config(page_title="Curriculum Generator", page_icon="🤖")
-st.title("Curriculum Generator")
+st.set_page_config(page_title="CURRICULA-GEN", page_icon="🤖")
+st.title("CURRICULA-GEN")
 
 # Initialize chat in session state if it doesn't exist
 if "chat" not in st.session_state:

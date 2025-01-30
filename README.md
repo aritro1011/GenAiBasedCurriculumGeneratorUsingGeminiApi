@@ -4,7 +4,7 @@ A **Gemini API**-powered **Curriculum Generator** built using **Streamlit** that
 
 ## 🚀 Features
 - **AI-Powered Suggestions**: Uses Gemini API to generate custom curriculum plans.
-- **User Input Based**: Tailors courses based on subject, descriptiveness and more preferences.
+- **User Input Based**: Tailors courses based on subject, descriptiveness,proficiency and more preferences.
 - **Structured Output**: Provides a step-by-step curriculum with relevant resources.
 - **Intuitive UI**: Simple and interactive interface using Streamlit.
 
@@ -13,8 +13,8 @@ A **Gemini API**-powered **Curriculum Generator** built using **Streamlit** that
 - **Backend**: Python
 - **AI Model**: Gemini API
 
-## **Demo video**  
-https://drive.google.com/file/d/1gbSwk8l-hwmYf0TYYT5VWgqCHh-_5JA5/view?usp=sharing
+## **Deployed Website**  
+https://curricula-gen.streamlit.app/
 
 ## 📦 Installation
 ```bash

@@ -3,6 +3,6 @@ openai
 requests
 python-dotenv
 google-generativeai
-docx
+python-docx
 datetime
 

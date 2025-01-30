@@ -1,6 +1,5 @@
 import streamlit as st
 import google.generativeai as genai
-from config import GEMINI_API_KEY
 from docx import Document
 from io import BytesIO
 import datetime

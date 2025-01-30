@@ -1,12 +1,13 @@
 import streamlit as st
 import google.generativeai as genai
+#from config import GEMINI_API_KEY   Use this when running locally
 from docx import Document
 from io import BytesIO
 import datetime
 import os
 
 # Configure the API key securely from Streamlit Secrets
-GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"] #remove this line when running locally
 
 # Configure the API key
 genai.configure(api_key=GEMINI_API_KEY)

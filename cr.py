@@ -13,7 +13,7 @@ GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"] #remove this line when running loc
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Initialize the model
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-2.0-flash')
 
 # Set up Streamlit page configuration
 st.set_page_config(page_title="CURRICULA-GEN", page_icon="🤖")

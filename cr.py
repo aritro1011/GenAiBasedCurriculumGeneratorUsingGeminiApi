@@ -1,11 +1,11 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 from docx import Document
 from io import BytesIO
 import datetime
 
 # =========================
-# CONFIGURATION
+# STREAMLIT CONFIG
 # =========================
 
 st.set_page_config(
@@ -16,40 +16,36 @@ st.set_page_config(
 
 st.title("CURRICULA-GEN")
 
-# Use this line on Streamlit Cloud
+# =========================
+# GEMINI CONFIG (NEW SDK)
+# =========================
+
+# Streamlit Cloud
 GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
-# Use this line locally instead
+# Local testing (uncomment if needed)
 # GEMINI_API_KEY = "YOUR_API_KEY"
 
-genai.configure(api_key=GEMINI_API_KEY)
-
-model = genai.GenerativeModel("gemini-2.0-flash")
+client = genai.Client(api_key=GEMINI_API_KEY)
+MODEL_NAME = "gemini-2.0-flash"
 
 # =========================
-# SYSTEM PROMPT (ONE-TIME)
+# SYSTEM PROMPT (TOKEN-SAFE)
 # =========================
 
 SYSTEM_PROMPT = """
-You are an expert curriculum designer working in an EdTech environment.
+You are an expert curriculum designer in an EdTech environment.
 
-Generate clear, well-structured, and professionally researched learning curricula.
+Generate clear, well-structured, and professionally researched curricula.
 
-Always follow this structure:
+Always use this structure:
 1. Context and Background
 2. Course Objectives
 3. Module Structure (modules, topics, sub-topics)
 4. Learning Outcomes
 5. Resources and References (valid functional links only)
 
-Design principles:
-- Logical progression from fundamentals to advanced topics
-- Alignment between objectives, modules, and outcomes
-- Appropriate depth based on course or workshop duration
-- Clear and concise explanations
-
-Base the curriculum on industry best practices, reputable educational platforms,
-and credible academic or professional resources.
+Follow industry best practices and ensure logical learning progression.
 """
 
 # =========================
@@ -63,8 +59,7 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
     course_type = st.selectbox(
         "Course Type",
-        ["Course", "Workshop"],
-        help="Workshop = one-day learning, Course = detailed learning"
+        ["Course", "Workshop"]
     )
 
 with col2:
@@ -108,8 +103,8 @@ if enable_proficiency == "Yes":
 
 course_topic = st.text_area(
     "Course Topic",
-    placeholder="e.g., Introduction to Generative AI",
-    height=80
+    height=80,
+    placeholder="e.g., Introduction to Generative AI"
 )
 
 primary_resource_url = st.text_input(
@@ -128,14 +123,14 @@ def build_prompt():
 
     mode_guidelines = (
         "- Suitable for one-day delivery\n"
-        "- Focus on core concepts\n"
+        "- Focus on essential concepts\n"
         "- Include quick practical activities\n"
         "- Provide time allocation per module"
         if course_type == "Workshop"
         else
         "- Comprehensive topic coverage\n"
         "- Progressive difficulty\n"
-        "- Include theoretical and practical components\n"
+        "- Include theoretical and practical elements\n"
         "- Emphasize long-term learning outcomes"
     )
 
@@ -166,13 +161,17 @@ if st.button("Generate Curriculum Structure"):
         with st.spinner("Generating curriculum..."):
             try:
                 prompt = build_prompt()
-                response = model.generate_content(prompt)
+
+                response = client.models.generate_content(
+                    model=MODEL_NAME,
+                    contents=prompt
+                )
 
                 curriculum_text = response.text
                 st.markdown(curriculum_text)
 
                 # =========================
-                # WORD DOCUMENT EXPORT
+                # WORD EXPORT
                 # =========================
 
                 doc = Document()
@@ -193,10 +192,10 @@ if st.button("Generate Curriculum Structure"):
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 )
 
-            except Exception as e:
+            except Exception:
                 st.error(
                     "⚠️ Gemini API quota or rate limit reached. "
-                    "Please wait a minute and try again."
+                    "Please wait and try again."
                 )
 
 # =========================
@@ -207,14 +206,14 @@ st.sidebar.markdown("""
 ## How to Use
 1. Enter a course topic
 2. Configure modules and topics
-3. (Optional) Choose proficiency level
+3. (Optional) Select proficiency level
 4. Click **Generate Curriculum Structure**
 5. Download the curriculum as a Word file
 
 ## Output Includes
-- Context & background
+- Context and background
 - Clear objectives
 - Structured modules
 - Learning outcomes
-- Verified learning resources
+- Valid learning resources
 """)

@@ -2,7 +2,8 @@ streamlit
 openai
 requests
 python-dotenv
-google-generativeai
+google-genai
 python-docx
 datetime
+
 

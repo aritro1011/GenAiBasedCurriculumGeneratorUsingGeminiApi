@@ -27,7 +27,7 @@ GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 # GEMINI_API_KEY = "YOUR_API_KEY"
 
 client = genai.Client(api_key=GEMINI_API_KEY)
-MODEL_NAME = "gemini-2.0-flash"
+MODEL_NAME = "gemini-1.5-flash"
 
 # =========================
 # SYSTEM PROMPT (TOKEN-SAFE)
@@ -217,3 +217,4 @@ st.sidebar.markdown("""
 - Learning outcomes
 - Valid learning resources
 """)
+
